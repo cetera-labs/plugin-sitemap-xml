@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<schema>
+    <table name="sitemapxml_lists" engine="MyISAM">
+        <field name="id" type="int(11)" null="0" auto_increment="1"/>
+        <field name="name" type="varchar(64)" null="0"/>
+        <field name="path" type="varchar(128)" null="0"/>
+        <field name="dirs" type="text" null="1"/>
+        <field name="site" type="varchar(128)" null="1"/>
+        <field name="lastUpdate" type="datetime" null="1"/>
+        <field name="lastRun" type="datetime" null="1"/>
+        <field name="robots" type="int(1)" null="1"/>
+        <field name="yandex" type="int(1)" null="1"/>
+        <field name="google" type="int(1)" null="1"/>
+        <field name="bing" type="int(1)" null="1"/>
+        <key name="PRIMARY" unique="1">
+            <column name="id"/>
+        </key>
+    </table>
+    <table name="sitemapxml_parse" engine="MyISAM">
+        <field name="id" type="int(11)" null="0" auto_increment="1"/>
+        <field name="dirId" type="int(11)" null="0"/>
+        <field name="listId" type="int(11)" null="0"/>
+        <field name="processed" type="int(1)" null="1"/>
+        <key name="PRIMARY" unique="1">
+            <column name="id"/>
+        </key>
+        <key name="list" unique="0">
+            <column name="listId"/>
+        </key>		
+    </table>
+    <table name="sitemapxml_urls" engine="MyISAM">
+        <field name="id" type="int(11)" null="0" auto_increment="1"/>
+        <field name="url" type="varchar(300)" null="0"/>
+        <field name="lastModified" type="datetime" null="0"/>
+        <field name="priority" type="varchar(64)" null="0"/>
+        <field name="listId" type="int(11)" null="0"/>
+        <field name="processed" type="int(1)" null="1"/>
+        <key name="PRIMARY" unique="1">
+            <column name="id"/>
+        </key>
+        <key name="list" unique="1">
+            <column name="listId"/>
+			<column name="url"/>
+        </key>			
+    </table>
+</schema>

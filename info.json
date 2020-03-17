@@ -1,0 +1,14 @@
+{
+    "version": "2.6",
+    "cms_version_min": "3.35",
+    "title": "XML Sitemap",
+    "description": "Create a file with information about the site pages subject to indexing.<br><a href='//cetera.ru/cetera_cms/plugins/sitemapxml/license_en.html' target='_blank'>License agreement</a>",
+    "description_ru": "Создание файла с информацией о страницах сайта, подлежащих индексированию.<br><a href='//cetera.ru/cetera_cms/plugins/sitemapxml/license.html' target='_blank'>Лицензионное соглашение</a>",
+    "author": "Arthur Garin, Roman Romanov",
+    "requires": [
+        {
+            "plugin": "plugins_statistic",
+            "version": "1.4"
+        }
+    ]
+}
