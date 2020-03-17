@@ -1,11 +1,4 @@
-<?php
-header('Content-Type: application/javascript; charset=UTF-8');
-include_once('common_bo.php');
-include_once('SiteTree.js');
-include_once('SiteTreeCheck.php');
-include_once('ui_sitemapxml_list_properties.php');
-?>
-Ext.define('SitemapxmlListPanel', {
+Ext.define('Plugin.sitemap-xml.Panel', {
     extend: 'Ext.grid.GridPanel',
     columns: [
         {header: _('ID'), width: 30, dataIndex: 'id'},
