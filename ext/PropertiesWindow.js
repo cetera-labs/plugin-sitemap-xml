@@ -276,7 +276,7 @@ Ext.define('Plugin.sitemap-xml.PropertiesWindow', {
         this.form.getForm().reset();
         this.tabs.setActiveTab(0);
 
-        SitemapxmlListPropertiesWindow.superclass.show.call(this);
+        this.callParent();
 
         this.listId = listId;
         if (listId > 0) {
