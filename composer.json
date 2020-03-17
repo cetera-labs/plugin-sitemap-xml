@@ -1,0 +1,32 @@
+{
+  "name": "cetera-labs/plugin-sitemap-xml",
+  "description": "Create a file with information about the site pages subject to indexing.<br><a href='//cetera.ru/cetera_cms/plugins/sitemapxml/license_en.html' target='_blank'>License agreement</a>",
+  "type": "cetera-cms-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Roman Romanov",
+      "email": "nicodim@mail.ru",
+      "role": "Lead Developer"
+    },
+    {
+      "name": "Arthur Garin",
+      "email": "",
+      "role": ""
+    }
+  ],
+
+  "minimum-stability": "dev",
+
+  "autoload": {
+    "psr-0": {
+      "SitemapXML\\": "classes/"
+    }
+  },
+
+  "extra": {
+    "name": "sitemap-xml",
+    "title": "Widget sitemap-xml",
+    "description": ""
+  }
+}
