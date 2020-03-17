@@ -16,10 +16,3 @@ if ($this->getBo() && $this->getUser() && $this->getUser()->allowAdmin()) {
         'class' => 'SitemapxmlListPanel'
     ));
 }
-
-if ($this->getBo() && class_exists("\PluginsStatistic\PluginsStatistic")) {
-    try {
-        \PluginsStatistic\PluginsStatistic::sendData("sitemapxml");
-    } catch (\Exception $e) {
-    }
-}
