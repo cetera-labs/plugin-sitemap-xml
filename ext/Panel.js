@@ -126,7 +126,7 @@ Ext.define('Plugin.sitemap-xml.Panel', {
 
     edit: function (id) {
         if (!this.propertiesWin) {
-            this.propertiesWin = new SitemapxmlListPropertiesWindow();
+            this.propertiesWin = Ext.create('Plugin.sitemap-xml.PropertiesWindow');
             this.propertiesWin.on('listChanged', function (id, item) {
                 this.reload();
             }, this);
