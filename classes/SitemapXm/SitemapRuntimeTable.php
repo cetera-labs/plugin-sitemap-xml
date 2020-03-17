@@ -6,7 +6,7 @@
  * Time: 22:11
  */
 
-namespace SitemapXml;
+namespace SitemapXML;
 
 class SitemapRuntimeTable
 {

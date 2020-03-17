@@ -116,7 +116,7 @@ if ($action == 'import_all') {
 
 if ($action == "parse") {
     if ($id > 0) {
-        $res = \SitemapXml\SitemapXML::parse($id);
+        $res = \SitemapXML\SitemapXML::parse($id);
         $res["request"] = $_REQUEST;
     }
 }
