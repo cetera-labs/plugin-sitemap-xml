@@ -1,4 +1,6 @@
 <?php
+include_once('common_bo.php');
+
 $servers = \Cetera\Server::enum();
 if (sizeof($servers)) {
 
