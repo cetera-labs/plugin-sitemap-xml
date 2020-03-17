@@ -35,7 +35,7 @@ Ext.define('Plugin.sitemap-xml.Panel', {
             totalProperty: 'total',
             proxy: {
                 type: 'ajax',
-                url: '<?= PLUGIN_PATH ?>data/data_sitemapxml_lists.php',
+                url: '/cms/plugins/sitemap-xml/scripts/data_sitemapxml_lists.php',
                 simpleSortMode: true,
                 reader: {
                     'root': 'rows',
@@ -142,7 +142,7 @@ Ext.define('Plugin.sitemap-xml.Panel', {
 
     call: function (action) {
         Ext.Ajax.request({
-            url: '<?= PLUGIN_PATH ?>action_sitemapxml_lists.php',
+            url: '/cms/plugins/sitemap-xml/scripts/action_sitemapxml_lists.php',
             params: {
                 'action': action,
                 'id': this.getSelectionModel().getSelection()[0].getId()
@@ -176,7 +176,7 @@ Ext.define('Plugin.sitemap-xml.Panel', {
         var _this = this;
         data.action = "parse";
         Ext.Ajax.request({
-            url: '<?= PLUGIN_PATH ?>action_sitemapxml_lists.php',
+            url: '/cms/plugins/sitemap-xml/scripts/action_sitemapxml_lists.php',
             params: data,
             scope: this,
 			timeout: 260000,

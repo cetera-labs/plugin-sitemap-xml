@@ -5,7 +5,6 @@
  *************************************************************************************************/
 
 include_once('common_bo.php');
-include_once(__DIR__ . '/../common_ml.php');
 
 $data = array();
 $sitemapxmlPath = $application->getServer()->getFullUrl();

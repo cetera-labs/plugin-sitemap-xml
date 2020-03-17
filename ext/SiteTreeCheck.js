@@ -14,7 +14,7 @@ Ext.define('Plugin.sitemap-xml.SiteTreeCheck', {
     initComponent: function () {
         if (this.url)
             var url = this.url;
-        else var url = '/cms/plugins/sitemap-xml/data/data_tree.php?1=1';
+        else var url = '/cms/plugins/sitemap-xml/scripts/data_tree.php?1=1';
         if (this.exclude) url += '&exclude=' + this.exclude;
         if (this.rule) url += '&rule=' + this.rule;
         if (this.nolink) url += '&nolink=' + this.nolink;

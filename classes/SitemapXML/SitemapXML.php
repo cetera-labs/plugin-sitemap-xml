@@ -1,6 +1,6 @@
 <?php
 
-namespace SitemapXML;
+namespace SitemapXml;
 
 /**
  * Created by PhpStorm.

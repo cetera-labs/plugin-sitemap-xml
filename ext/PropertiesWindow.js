@@ -178,7 +178,7 @@ Ext.define('Plugin.sitemap-xml.PropertiesWindow', {
             bodyStyle: 'background: none',
             method: 'POST',
             waitMsgTarget: true,
-            url: '/cms/plugins/sitemap-xml/scripts//action_sitemapxml_lists.php',
+            url: '/cms/plugins/sitemap-xml/scripts/action_sitemapxml_lists.php',
             items: this.tabs
         });
 
@@ -274,7 +274,7 @@ Ext.define('Plugin.sitemap-xml.PropertiesWindow', {
         if (listId > 0) {
             _this.waitMess.wait(_("Загрузка данных..."));
             Ext.Ajax.request({
-                url: '<?=PLUGIN_PATH?>action_sitemapxml_lists.php',
+                url: '/cms/plugins/sitemap-xml/scripts/action_sitemapxml_lists.php',
                 params: {
                     'action': 'get_list',
                     'id': this.listId
@@ -303,7 +303,7 @@ Ext.define('Plugin.sitemap-xml.PropertiesWindow', {
         if (itemID > 0) {
             _this.waitMess.wait(_("Загрузка данных..."));
             Ext.Ajax.request({
-                url: '<?=PLUGIN_PATH?>action_sitemapxml_lists.php',
+                url: '/cms/plugins/sitemap-xml/scripts/action_sitemapxml_lists.php',
                 params: {
                     'action': 'get_list',
                     'id': _this.listId
