@@ -116,10 +116,9 @@ if ($action == 'import_all') {
 
 if ($action == "parse") {
     if ($id > 0) {
-        $res = \SitemapXML\SitemapXML::parse($id);
+        $res = \SitemapXml\SitemapXML::parse($id);
         $res["request"] = $_REQUEST;
     }
 }
 
 echo json_encode($res);
-?>
