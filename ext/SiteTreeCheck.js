@@ -1,6 +1,6 @@
-Ext.require('Sitemapxml.Model.SiteTreeCheck');
+Ext.require('Plugin.sitemap-xml.SiteTreeCheckModel');
 
-Ext.define('Sitemapxml.SiteTreeCheck', {
+Ext.define('Plugin.sitemap-xml.SiteTreeCheck', {
 
     extend: 'Ext.tree.TreePanel',
 
@@ -14,7 +14,7 @@ Ext.define('Sitemapxml.SiteTreeCheck', {
     initComponent: function () {
         if (this.url)
             var url = this.url;
-        else var url = '<?= PLUGIN_PATH ?>data/data_tree.php?1=1';
+        else var url = '/cms/plugins/sitemap-xml/data/data_tree.php?1=1';
         if (this.exclude) url += '&exclude=' + this.exclude;
         if (this.rule) url += '&rule=' + this.rule;
         if (this.nolink) url += '&nolink=' + this.nolink;
@@ -27,7 +27,7 @@ Ext.define('Sitemapxml.SiteTreeCheck', {
         if (this.itemID) url += '&itemID=' + this.itemID;
 
         this.store = new Ext.data.TreeStore({
-            model: Sitemapxml.Model.SiteTreeCheck,
+            model: 'Plugin.sitemap-xml.SiteTreeCheckModel',
             rootVisible: false,
             proxy: {
                 type: 'ajax',
