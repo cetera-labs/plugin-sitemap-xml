@@ -1,4 +1,4 @@
-Ext.define('Sitemapxml.Model.SiteTreeCheck', {
+Ext.define('Plugin.sitemap-xml.SiteTreeCheckModel', {
     extend: 'Ext.data.Model',
     fields: [{
         name: 'text',
