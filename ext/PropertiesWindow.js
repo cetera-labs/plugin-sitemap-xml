@@ -61,11 +61,19 @@ Ext.define('Plugin.sitemap-xml.PropertiesWindow', {
         this.combo = Ext.create('Ext.form.ComboBox', {
             fieldLabel: _('Сайт'),
             id: 'site',
-            store: new Ext.data.ArrayStore({
+            store: new Ext.data.JsonStore({
                 autoDestroy: true,
-                fields: ['id', 'name'],
-                data: <?=$serverList;?>
-            }),
+                autoLoad: true,
+                fields: ['id','name'],
+                proxy: {
+                    type: 'ajax',
+                    url: '/cms/plugins/sitemap-xml/scripts/data_servers.php'                  
+                    reader: {
+                        type: 'json',
+                        root: 'rows'
+                    }                    
+                }
+            }),            
             valueField: 'id',
             displayField: 'name',
             queryMode: 'local',
@@ -98,7 +106,7 @@ Ext.define('Plugin.sitemap-xml.PropertiesWindow', {
                 items: [
                     {
                         xtype: 'panel',
-                        html: '<div style="text-align: right;"><a href="/plugins/sitemapxml/help/ru/index.html" target="_blank">' + _('Справка') + '</a></div>',
+                        html: '<div style="text-align: right;"><a href="/plugins/sitemap-xml/help/ru/index.html" target="_blank">' + _('Справка') + '</a></div>',
                         bodyStyle: 'background: none',
                         border: false,
                         scope: this
