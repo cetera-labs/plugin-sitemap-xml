@@ -1,18 +1,4 @@
-<?php
-include_once('common_bo.php');
-include_once(__DIR__ . '/../common_ml.php');
-
-$servers = \Cetera\Catalog::getRoot()->getChildren();
-$serverList = Array();
-foreach ($servers as $server) {
-    $serverList[] = Array($server->id, $server->name . " (" . $server->alias . ")");
-}
-
-$serverList = json_encode($serverList);
-$locale = \Cetera\Application::getInstance()->getLocale();
-
-?>
-Ext.define('Plugin.sitemap-xml.ListPropertiesWindow', {
+Ext.define('Plugin.sitemap-xml.PropertiesWindow', {
 
     extend: 'Ext.Window',
 
@@ -32,7 +18,7 @@ Ext.define('Plugin.sitemap-xml.ListPropertiesWindow', {
         _this.server = null;
         _this.waitMess = Ext.MessageBox;
 
-        this.dirSetList = Ext.create('Sitemapxml.SiteTreeCheck', {
+        this.dirSetList = Ext.create('Plugin.sitemap-xml.SiteTreeCheck', {
             name: 'dirs',
             from: '0',
             fieldLabel: _('Разделы'),
@@ -112,7 +98,7 @@ Ext.define('Plugin.sitemap-xml.ListPropertiesWindow', {
                 items: [
                     {
                         xtype: 'panel',
-                        html: '<div style="text-align: right;"><a href="/plugins/sitemapxml/help/<?= $locale?>/index.html" target="_blank">' + _('Справка') + '</a></div>',
+                        html: '<div style="text-align: right;"><a href="/plugins/sitemapxml/help/ru/index.html" target="_blank">' + _('Справка') + '</a></div>',
                         bodyStyle: 'background: none',
                         border: false,
                         scope: this
@@ -192,7 +178,7 @@ Ext.define('Plugin.sitemap-xml.ListPropertiesWindow', {
             bodyStyle: 'background: none',
             method: 'POST',
             waitMsgTarget: true,
-            url: '<?=PLUGIN_PATH?>action_sitemapxml_lists.php',
+            url: '/cms/plugins/sitemap-xml/scripts//action_sitemapxml_lists.php',
             items: this.tabs
         });
 
