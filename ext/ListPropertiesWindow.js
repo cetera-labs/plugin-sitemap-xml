@@ -12,7 +12,7 @@ $serverList = json_encode($serverList);
 $locale = \Cetera\Application::getInstance()->getLocale();
 
 ?>
-Ext.define('SitemapxmlListPropertiesWindow', {
+Ext.define('Sitemapxml.ListPropertiesWindow', {
 
     extend: 'Ext.Window',
 
