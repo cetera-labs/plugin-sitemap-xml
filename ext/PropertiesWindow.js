@@ -67,7 +67,7 @@ Ext.define('Plugin.sitemap-xml.PropertiesWindow', {
                 fields: ['id','name'],
                 proxy: {
                     type: 'ajax',
-                    url: '/cms/plugins/sitemap-xml/scripts/data_servers.php'                  
+                    url: '/cms/plugins/sitemap-xml/scripts/data_servers.php',                  
                     reader: {
                         type: 'json',
                         root: 'rows'
