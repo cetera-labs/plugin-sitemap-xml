@@ -11,8 +11,7 @@ if ($this->getBo() && $this->getUser() && $this->getUser()->allowAdmin()) {
         'id' => 'sitemapxml',
         'position' => MENU_SERVICE,
         'name' => 'Sitemap.xml',
-        'icon' => 'icon.gif',
-        'url' => 'ext/ui_sitemapxml_lists.php',
-        'class' => 'SitemapxmlListPanel'
+        'icon' => '/cms/plugins/sitemap-xml/icon.gif',
+        'class'    => 'Plugin.sitemap-xml.Panel'        
     ));
 }
