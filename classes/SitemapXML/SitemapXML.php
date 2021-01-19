@@ -140,7 +140,7 @@ class SitemapXML extends \Cetera\Catalog
         }
     }
 
-    public static function parse($id)
+    public static function parse($id, $full = false)
     {
         $p = new self($id);
         $t = \Cetera\Application::getInstance()->getTranslator();
@@ -149,11 +149,22 @@ class SitemapXML extends \Cetera\Catalog
         } elseif (empty($p->info["path"])) {
             throw new \Exception($t->_("Не указан путь к файлу"));
         }
+        
+        if (!$full) {
+            return $p->parseStep();
+        }
+        else {
+            $p->parseStep(0, 10000);
+            $p->parseStep(10, 10000);
+            $p->parseStep(20, 10000);
+            $p->parseStep(80, 10000);
+            $p->parseStep(90, 10000);
+            $p->parseStep(95, 10000);
+            $p->parseStep(100, 10000);
+        }
+    }       
 
-        return $p->parseStep();
-    }
-
-    protected function parseStep()
+    protected function parseStep($step = null, $stepDuration = 10)
     {
         $arValueSteps = array(
             'init' => 0,
@@ -165,12 +176,17 @@ class SitemapXML extends \Cetera\Catalog
             'index' => 100,
         );
 
-        $stepDuration = 10;
-
         $t = \Cetera\Application::getInstance()->getTranslator();
 
         $NS = isset($_SESSION['NS'][$this->id]) && is_array($_SESSION['NS'][$this->id]) ? $_SESSION['NS'][$this->id] : array();
-        $v = intval($_REQUEST['step']);
+        
+        if ($step === null) {
+            $v = intval($_REQUEST['step']);
+        }
+        else {
+            $v = $step;
+        }
+        
         $PID = $this->id;
 
         if ($v === $arValueSteps['init']) {
