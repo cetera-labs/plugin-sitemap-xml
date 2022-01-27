@@ -1,0 +1,225 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Модуль \"Sitemap XML\"\n"
+"POT-Creation-Date: 2017-05-05 01:58+0300\n"
+"PO-Revision-Date: 2017-05-05 09:31+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: _;translate\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: ext/SiteTreeCheck.js:46
+msgid "Раздел"
+msgstr "Section"
+
+#: ext/SiteTreeCheck.js:56
+msgid "Элементы"
+msgstr "Elements"
+
+#: ext/ui_sitemapxml_list_properties.js:36
+#: ext/ui_sitemapxml_list_properties.js:173
+msgid "Разделы"
+msgstr "Partitions"
+
+#: ext/ui_sitemapxml_list_properties.js:74 ext/ui_sitemapxml_lists.js:14
+msgid "Сайт"
+msgstr "Website"
+
+#: ext/ui_sitemapxml_list_properties.js:105
+msgid "Настройки"
+msgstr "Settings"
+
+#: ext/ui_sitemapxml_list_properties.js:113
+msgid "Справка"
+msgstr "Help"
+
+#: ext/ui_sitemapxml_list_properties.js:120 ext/ui_sitemapxml_lists.js:13
+msgid "Название"
+msgstr "Name"
+
+#: ext/ui_sitemapxml_list_properties.js:124
+msgid "Путь к файлу"
+msgstr "The path to the file"
+
+#: ext/ui_sitemapxml_list_properties.js:133
+msgid "Добавить правило в robots.txt после генерации"
+msgstr "Add a rule in the robots.txt after generation"
+
+#: ext/ui_sitemapxml_list_properties.js:139
+msgid "Оповестить Google об изменении сайта"
+msgstr "Notify Google about the change of website"
+
+#: ext/ui_sitemapxml_list_properties.js:146
+#: ext/ui_sitemapxml_list_properties.js:157
+#: ext/ui_sitemapxml_list_properties.js:168
+msgid "Регистрация не требуется, но вы можете войти в"
+msgstr "Registration is not required but you can log in"
+
+#: ext/ui_sitemapxml_list_properties.js:146
+#: ext/ui_sitemapxml_list_properties.js:157
+#: ext/ui_sitemapxml_list_properties.js:168
+msgid "и проверить статистику по сайту."
+msgstr "and check the stats on the website."
+
+#: ext/ui_sitemapxml_list_properties.js:150
+msgid "Оповестить Yandex об изменении сайта"
+msgstr "Notify Yandex about the change of website"
+
+#: ext/ui_sitemapxml_list_properties.js:161
+msgid "Оповестить Bing об изменении сайта"
+msgstr "Notify Bing about the change of website"
+
+#: ext/ui_sitemapxml_list_properties.js:200
+msgid "Ok"
+msgstr "Ok"
+
+#: ext/ui_sitemapxml_list_properties.js:204
+msgid "Отмена"
+msgstr "Cancel"
+
+#: ext/ui_sitemapxml_list_properties.js:253 classes/SitemapXML.php:746
+#: classes/SitemapXML.php:750 classes/SitemapXML.php:766
+#: classes/SitemapXML.php:771
+msgid "Нет"
+msgstr "No"
+
+#: ext/ui_sitemapxml_list_properties.js:266
+msgid "Да"
+msgstr "Yes"
+
+#: ext/ui_sitemapxml_list_properties.js:287
+#: ext/ui_sitemapxml_list_properties.js:316
+msgid "Загрузка данных..."
+msgstr "Downloading..."
+
+#: ext/ui_sitemapxml_list_properties.js:297
+msgid "Свойства"
+msgstr "Properties"
+
+#: ext/ui_sitemapxml_list_properties.js:303
+msgid "Новый Sitemapxml"
+msgstr "New Sitemapxml"
+
+#: ext/ui_sitemapxml_list_properties.js:376
+msgid "Сохранение..."
+msgstr "Saving..."
+
+#: ext/ui_sitemapxml_list_properties.js:382
+msgid "Ошибка сохранения"
+msgstr "Error saving"
+
+#: ext/ui_sitemapxml_lists.js:11
+msgid "ID"
+msgstr "ID"
+
+#: ext/ui_sitemapxml_lists.js:12
+msgid "Изменено"
+msgstr "Changed"
+
+#: ext/ui_sitemapxml_lists.js:15
+msgid "Последний запуск"
+msgstr "Last run"
+
+#: ext/ui_sitemapxml_lists.js:81
+msgid "Добавить настройку"
+msgstr "Add setting"
+
+#: ext/ui_sitemapxml_lists.js:92
+msgid "Изменить настройку"
+msgstr "To change the setting"
+
+#: ext/ui_sitemapxml_lists.js:103
+msgid "Удалить настройку"
+msgstr "To remove the setting"
+
+#: ext/ui_sitemapxml_lists.js:145
+msgid "Удалить Sitemapxml"
+msgstr "Remove Sitemapxml"
+
+#: ext/ui_sitemapxml_lists.js:145
+msgid "Вы уверены"
+msgstr "Are you sure"
+
+#: ext/ui_sitemapxml_lists.js:178
+msgid "Удаление временных данных..."
+msgstr "Delete temporary data..."
+
+#: ext/ui_sitemapxml_lists.js:192
+msgid "Ошибка"
+msgstr "Error"
+
+#: ext/ui_sitemapxml_lists.js:201
+msgid "Успешное выполнение"
+msgstr "Successfully complete"
+
+#: action_sitemapxml_lists.php:46
+msgid "Sitemapxml с таким названием уже существует"
+msgstr "Sitemapxml with the same name already exists"
+
+#: classes/SitemapXML.php:147
+msgid "Не выбран сайт"
+msgstr "Not selected website"
+
+#: classes/SitemapXML.php:149
+msgid "Не указан путь к файлу"
+msgstr "Do not specify the path to the file"
+
+#: classes/SitemapXML.php:176
+msgid "Создание списка разделов..."
+msgstr "Creating list of partitions..."
+
+#: classes/SitemapXML.php:224
+msgid "Индексирование разделов..."
+msgstr "The index of the sections..."
+
+#: classes/SitemapXML.php:227
+msgid "Ошибка получения данных."
+msgstr "Data acquisition error."
+
+#: classes/SitemapXML.php:261 classes/SitemapXML.php:282
+msgid "Индексирование элементов..."
+msgstr "The index of the elements..."
+
+#: classes/SitemapXML.php:309 classes/SitemapXML.php:341
+msgid "Сохранение данных в файл"
+msgstr "Saving data to a file"
+
+#: classes/SitemapXML.php:351
+msgid "Добавление информации в robots.txt"
+msgstr "Adding information to robots.txt"
+
+#: classes/SitemapXML.php:354 classes/SitemapXML.php:364
+msgid "Оповещение поисковых систем"
+msgstr "Alert search engines"
+
+#: classes/SitemapXML.php:380
+msgid "Оповещение поисковых систем: Яндекс"
+msgstr "Alert search engines: Yandex"
+
+#: classes/SitemapXML.php:383
+msgid "Оповещение поисковых систем: Google"
+msgstr "Alert search engines: Google"
+
+#: classes/SitemapXML.php:386
+msgid "Оповещение поисковых систем: Bing"
+msgstr "Alert search engines: Bing"
+
+#: classes/SitemapXML.php:401
+msgid "Создание карты сайта успешно выполнено"
+msgstr "Creating a sitemap completed successfully"
+
+#: data/data_sitemapxml_lists.php:35
+msgid "Еще не запускался"
+msgstr "Have not yet run"
+
+#: data/data_sitemapxml_lists.php:37
+msgid "Запустить"
+msgstr "Start"
