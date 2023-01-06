@@ -18,7 +18,6 @@ $res = array(
 );
 
 $action = $_REQUEST['action'];
-$sel = $_POST['sel'];
 $id = intval($_REQUEST['id']);
 
 if ($action == 'delete_list') {

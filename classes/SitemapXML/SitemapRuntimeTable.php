@@ -15,7 +15,7 @@ class SitemapRuntimeTable
     const TABLE = "sitemapxml_parse";
 
     public static function clearByPid($PID)
-    {	
+    {
         $qb = \Cetera\DbConnection::getDbConnection()->createQueryBuilder();
         $qb->delete('sitemapxml_parse')
             ->where($qb->expr()->eq('listId', (int)$PID))
@@ -43,22 +43,21 @@ class SitemapRuntimeTable
     public static function addUrl($data)
     {
         $qb = \Cetera\DbConnection::getDbConnection()->createQueryBuilder();
-		try {
-			$r = $qb
-				->insert('sitemapxml_urls')
-				->values(
-					array(
-						'`listId`' => intval($data["listId"]),
-						'`url`' => $qb->expr()->literal(trim($data["url"]), \PDO::PARAM_STR),
-						'`priority`' => $qb->expr()->literal(trim($data["priority"]), \PDO::PARAM_STR),
-						'`lastModified`' => $qb->expr()->literal(!empty($data["date"]) ? date('Y-m-d H:i:s', strtotime($data['date'])) : date("Y-m-d H:i:s"), \PDO::PARAM_STR)
-					)
-				)
-				->execute();
-		}
-		catch(\Exception $e) {
-			
-		}
+        try {
+            $r = $qb
+                ->insert('sitemapxml_urls')
+                ->values(
+                    array(
+                        '`listId`' => intval($data["listId"]),
+                        '`url`' => $qb->expr()->literal(trim($data["url"]), \PDO::PARAM_STR),
+                        '`priority`' => $qb->expr()->literal(trim($data["priority"]), \PDO::PARAM_STR),
+                        '`lastModified`' => $qb->expr()->literal(!empty($data["date"]) ? date('Y-m-d H:i:s', strtotime($data['date'])) : date("Y-m-d H:i:s"), \PDO::PARAM_STR)
+                    )
+                )
+                ->execute();
+        } catch (\Exception $e) {
+
+        }
     }
 
     public static function setUrlProcessed($data)
@@ -87,7 +86,7 @@ class SitemapRuntimeTable
             ->execute();
     }
 
-    public static function getList($arSort = Array(), $arFilter = Array(), $arLimit = Array(), $arSelect = Array())
+    public static function getList($arSort = array(), $arFilter = array(), $arLimit = array(), $arSelect = array())
     {
         $qb = \Cetera\DbConnection::getDbConnection()->createQueryBuilder();
         if (empty($arSelect))
@@ -157,19 +156,22 @@ class SitemapRuntimeTable
             }
         }
 
-        if (count($arLimit)) {
-            if (intval($arLimit["LIMIT"]) > 0) {
-                $qb = $qb->setMaxResults(intval($arLimit["LIMIT"]));
-            }
+        $arLimit['LIMIT'] = $arLimit['LIMIT'] ?? 0;
+        $arLimit['TOP'] = $arLimit['TOP'] ?? 0;
+        $arLimit['PAGE'] = $arLimit['PAGE'] ?? 0;
 
-            if (intval($arLimit["TOP"]) > 0) {
-                $qb = $qb->setFirstResult(intval($arLimit["TOP"]));
-            }
 
-            if (intval($arLimit["PAGE"]) > 0 && intval($arLimit["PAGE_COUNT"]) > 0) {
-                $qb = $qb->setFirstResult((intval($arLimit["PAGE"]) - 1) * intval($arLimit["PAGE_COUNT"]));
-                $qb = $qb->setMaxResults(intval($arLimit["PAGE_COUNT"]));
-            }
+        if (intval($arLimit["LIMIT"]) > 0) {
+            $qb = $qb->setMaxResults(intval($arLimit["LIMIT"]));
+        }
+
+        if (intval($arLimit["TOP"]) > 0) {
+            $qb = $qb->setFirstResult(intval($arLimit["TOP"]));
+        }
+
+        if (intval($arLimit["PAGE"]) > 0 && intval($arLimit["PAGE_COUNT"]) > 0) {
+            $qb = $qb->setFirstResult((intval($arLimit["PAGE"]) - 1) * intval($arLimit["PAGE_COUNT"]));
+            $qb = $qb->setMaxResults(intval($arLimit["PAGE_COUNT"]));
         }
 
         $r = $qb->execute();

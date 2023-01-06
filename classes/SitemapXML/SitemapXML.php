@@ -8,6 +8,7 @@ namespace SitemapXML;
  * Date: 18.08.2016
  * Time: 0:10
  */
+
 use Cetera\Util;
 
 class SitemapXML extends \Cetera\Catalog
@@ -71,7 +72,7 @@ class SitemapXML extends \Cetera\Catalog
      * @var array
      */
     protected $errors = [];
-    protected $info = Array();
+    protected $info = array();
     protected $serviceList = [
         "google" => [
             "url" => "https://www.google.com/webmasters/tools/ping?sitemap=%s%",
@@ -92,7 +93,7 @@ class SitemapXML extends \Cetera\Catalog
             "configName" => "pingBingSuccess"
         ],
     ];
-    protected $nodes = Array();
+    protected $nodes = array();
     protected $showMaterial;
     protected $status;
     protected $excludeDir;
@@ -149,11 +150,10 @@ class SitemapXML extends \Cetera\Catalog
         } elseif (empty($p->info["path"])) {
             throw new \Exception($t->_("Не указан путь к файлу"));
         }
-        
+
         if (!$full) {
             return $p->parseStep();
-        }
-        else {
+        } else {
             $p->parseStep(0, 10000);
             $p->parseStep(10, 10000);
             $p->parseStep(20, 10000);
@@ -162,7 +162,7 @@ class SitemapXML extends \Cetera\Catalog
             $p->parseStep(95, 10000);
             $p->parseStep(100, 10000);
         }
-    }       
+    }
 
     protected function parseStep($step = null, $stepDuration = 10)
     {
@@ -179,19 +179,25 @@ class SitemapXML extends \Cetera\Catalog
         $t = \Cetera\Application::getInstance()->getTranslator();
 
         $NS = isset($_SESSION['NS'][$this->id]) && is_array($_SESSION['NS'][$this->id]) ? $_SESSION['NS'][$this->id] : array();
-        
+
+        if (!array_key_exists('DIRS_COUNT', $NS)) {
+            $NS['DIRS_COUNT'] = 0;
+        }
+        if (!array_key_exists('CURRENT_DIR_INSERT', $NS)) {
+            $NS['CURRENT_DIR_INSERT'] = false;
+        }
+
         if ($step === null) {
             $v = intval($_REQUEST['step']);
-        }
-        else {
+        } else {
             $v = $step;
         }
-        
+
         $PID = $this->id;
 
         if ($v === $arValueSteps['init']) {
             SitemapRuntimeTable::clearByPid($PID);
-            $NS = Array();
+            $NS = array();
             $NS['time_start'] = microtime(true);
             $NS['message'] = $t->_("Создание списка разделов...");
             $NS["CURRENT_COUNT"] = 0;
@@ -199,8 +205,8 @@ class SitemapXML extends \Cetera\Catalog
         } elseif ($v === $arValueSteps['dirs_index']) {
             $NS['time_start'] = microtime(true);
 
-            $this->excludeDir = Array();
-            $this->excludeElement = Array();
+            $this->excludeDir = array();
+            $this->excludeElement = array();
             foreach ($this->info["dirs"] as $dir) {
                 if (strpos($dir, "section-") !== false) {
                     $this->excludeDir[] = intval(str_replace("section-", "", $dir));
@@ -268,17 +274,17 @@ class SitemapXML extends \Cetera\Catalog
                 if (!$bFinished) {
                     $dir = \Cetera\Catalog::getById($NS["CURRENT_DIR"]);
                     if ($dir) {
-                        if ($NS["CURRENT_DIR_INSERT"]) {
+                        if (isset($NS['CURRENT_DIR_INSERT']) && $NS["CURRENT_DIR_INSERT"]) {
                             $dirInfo = self::process_child($dir);
                             if (!empty($dirInfo["fullUrl"]) && !empty($dirInfo["alias"])) {
-                                SitemapRuntimeTable::addUrl(Array(
+                                SitemapRuntimeTable::addUrl(array(
                                     'url' => $dirInfo["fullUrl"],
                                     'listId' => $this->id,
                                     'priority' => $dirInfo['id'] == $this->info['site'] ? '1' : '0.8',
                                     'date' => $dirInfo['date']
                                 ));
 
-                                SitemapRuntimeTable::addUrl(Array(
+                                SitemapRuntimeTable::addUrl(array(
                                     'url' => $dirInfo["fullUrl"],
                                     'listId' => $this->id,
                                     'priority' => $dirInfo['id'] == $this->info['site'] ? '1' : '0.8',
@@ -289,23 +295,23 @@ class SitemapXML extends \Cetera\Catalog
                             unset($NS["CURRENT_DIR_INSERT"]);
                         } elseif ((!is_array($this->excludeElement) || !in_array($NS["CURRENT_DIR"], $this->excludeElement)) && $dir->prototype->materialsType) {
                             $where = '';
-                            if (intval($NS["LAST_MATERIAL_ID"]) > 0)
+                            if (isset($NS['LAST_MATERIAL_ID']) && intval($NS["LAST_MATERIAL_ID"]) > 0)
                                 $where = 'id > ' . $NS["LAST_MATERIAL_ID"];
 
                             //$m = $dir->getMaterials('name', $where, "id ASC", '', 100, 0);
-							$m = $dir->getMaterials()->select('name')->where($where)->orderBy("id","ASC")->setItemCountPerPage(100);
+                            $m = $dir->getMaterials()->select('name')->where($where)->orderBy("id", "ASC")->setItemCountPerPage(100);
                             $hasMaterials = false;
                             foreach ($m as $material) {
                                 $hasMaterials = true;
                                 $a = self::process_material($material, 2);
                                 if (is_array($a) && !empty($a["fullUrl"]) && !empty($a["alias"])) {
-                                    SitemapRuntimeTable::addUrl(Array(
+                                    SitemapRuntimeTable::addUrl(array(
                                         'url' => $a["fullUrl"],
                                         'listId' => $this->id,
                                         'priority' => '0.6',
                                         'date' => $a["date"]
                                     ));
-                                    SitemapRuntimeTable::addUrl(Array(
+                                    SitemapRuntimeTable::addUrl(array(
                                         'url' => $a["fullUrl"],
                                         'listId' => $this->id,
                                         'priority' => '0.6',
@@ -342,11 +348,11 @@ class SitemapXML extends \Cetera\Catalog
                 $NS["message"] = $t->_("Сохранение данных в файл");
             }
         } elseif ($v == $arValueSteps["save"]) {
-            $urlList = Array();
+            $urlList = array();
 
             $ts_finish = microtime(true) + $stepDuration * 0.95;
             $bFinished = false;
-            $where = Array("table" => "sitemapxml_urls", "listId" => $this->id, "!processed" => 1);
+            $where = array("table" => "sitemapxml_urls", "listId" => $this->id, "!processed" => 1);
             /*if (!empty($NS["LAST_SAVE_URL"]))
                 $where[">id"] = $NS["LAST_SAVE_URL"];*/
 
@@ -355,10 +361,10 @@ class SitemapXML extends \Cetera\Catalog
                 self::createFile();
             }
 
-            $arResUrls = SitemapRuntimeTable::getList(Array("url" => "asc"), $where, Array("LIMIT" => 1000));
+            $arResUrls = SitemapRuntimeTable::getList(array("url" => "asc"), $where, array("LIMIT" => 1000));
 
             $hasUrls = false;
-            $setProcessed = Array();
+            $setProcessed = array();
             while (($url = $arResUrls->fetch()) && !$bFinished && microtime(true) <= $ts_finish) {
                 $url = preg_replace("#([^:])//#is", "$1/", $url);
                 $hasUrls = true;
@@ -385,7 +391,7 @@ class SitemapXML extends \Cetera\Catalog
                 $NS["message"] = $t->_("Сохранение данных в файл");
             }
 
-            if(count($setProcessed)){
+            if (count($setProcessed)) {
                 SitemapRuntimeTable::setUrlProcessed($setProcessed);
             }
 
@@ -416,7 +422,7 @@ class SitemapXML extends \Cetera\Catalog
             }
         } elseif ($v == $arValueSteps["services"]) {
             if (!is_array($NS["LAST_SERVICES"]))
-                $NS["LAST_SERVICES"] = Array();
+                $NS["LAST_SERVICES"] = array();
 
             if (!empty($NS["SERVICE_NAME"])) {
                 self::pingService($NS["SERVICE_NAME"]);
@@ -451,10 +457,10 @@ class SitemapXML extends \Cetera\Catalog
 
         $_SESSION['NS'][$this->id] = $NS;
 
-        return Array("id" => $this->id, "step" => $v, "message" => $NS["message"], "NS" => $NS);
+        return array("id" => $this->id, "step" => $v, "message" => $NS["message"], "NS" => $NS);
     }
 
-    public static function getList($arSort = Array(), $arFilter = Array(), $arLimit = Array(), $arSelect = Array())
+    public static function getList($arSort = array(), $arFilter = array(), $arLimit = array(), $arSelect = array())
     {
         $qb = \Cetera\DbConnection::getDbConnection()->createQueryBuilder();
         if (empty($arSelect))
@@ -786,7 +792,7 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                 $a = self::process_child($child, $rule, $only, $nolink, $exclude, $nocatselect, $level);
                 if (is_array($a)) {
                     $a["children"] = self::getTree($a["id"], $level);
-                    $a["children"] = self::array_delete($a["children"], Array('', 0, false, null));
+                    $a["children"] = self::array_delete($a["children"], array('', 0, false, null));
 
                     if (is_array($this->info["dirs"]) && count($this->info["dirs"])) {
                         $a['checked'] = !in_array("section-" . $a["id"], $this->info["dirs"]) ? true : false;
@@ -805,7 +811,7 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                     $a = self::process_child($child, $rule, $only, $nolink, $exclude, $nocatselect, $level);
                     if (is_array($a)) {
                         $a["children"] = self::getTree($a["id"], $level);
-                        $a["children"] = self::array_delete($a["children"], Array('', 0, false, null));
+                        $a["children"] = self::array_delete($a["children"], array('', 0, false, null));
 
                         if (is_array($this->info["dirs"]) && count($this->info["dirs"])) {
                             $a['checked'] = !in_array("section-" . $a["id"], $this->info["dirs"]) ? true : false;
@@ -836,7 +842,7 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                 }
             }
         }
-        $nodes = self::array_delete($nodes, Array('', 0, false, null));
+        $nodes = self::array_delete($nodes, array('', 0, false, null));
 
         return $nodes;
     }
@@ -849,7 +855,7 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
      *
      * @return array
      */
-    public static function array_delete(array $array = Array(), array $symbols = array(''))
+    public static function array_delete(array $array = array(), array $symbols = array(''))
     {
         return array_diff($array, $symbols);
     }
