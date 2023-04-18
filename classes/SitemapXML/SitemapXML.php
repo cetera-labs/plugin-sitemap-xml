@@ -790,7 +790,9 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                     continue;
 
                 $a = self::process_child($child, $rule, $only, $nolink, $exclude, $nocatselect, $level);
+                if(is_array($a["children"])){
                     $a["children"] = self::getTree($a["id"], $level);
+                }
                     $a["children"] = self::array_delete($a["children"], array('', 0, false, null));
 
                     if (isset($this->info["dirs"]) && is_array($this->info["dirs"]) && count($this->info["dirs"])) {
