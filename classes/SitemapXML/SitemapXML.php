@@ -854,7 +854,11 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
      */
     public static function array_delete(array $array = array(), array $symbols = array())
     {
-        return array_diff_assoc($array, $symbols);
+        $result=array();
+        foreach($array as $ar){
+            array_push($result,array_diff_assoc($ar, $symbols));
+        }
+        return $result;
     }
 
     public function getUrlList()
