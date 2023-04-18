@@ -792,8 +792,9 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                 $a = self::process_child($child, $rule, $only, $nolink, $exclude, $nocatselect, $level);
                 if (is_array($a)) {
                     $a["children"] = self::getTree($a["id"], $level);
+                    if(is_array($a["children"])){
                     $a["children"] = self::array_delete($a["children"], array('', 0, false, null));
-
+                    }
                     if (isset($this->info["dirs"]) && is_array($this->info["dirs"]) && count($this->info["dirs"])) {
                         $a['checked'] = !in_array("section-" . $a["id"], $this->info["dirs"]) ? true : false;
                         $hide = !in_array("element-" . $a["id"], $this->info["dirs"]) ? false : true;
@@ -811,8 +812,9 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                     $a = self::process_child($child, $rule, $only, $nolink, $exclude, $nocatselect, $level);
                     if (is_array($a)) {
                         $a["children"] = self::getTree($a["id"], $level);
+                        if(is_array($a["children"])){
                         $a["children"] = self::array_delete($a["children"], array('', 0, false, null));
-
+                        }
                         if (is_array($this->info["dirs"]) && count($this->info["dirs"])) {
                             $a['checked'] = !in_array("section-" . $a["id"], $this->info["dirs"]) ? true : false;
                             $hide = !in_array("element-" . $a["id"], $this->info["dirs"]) ? false : true;
@@ -842,8 +844,9 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                 }
             }
         }
+        if(is_array($nodes)){
         $nodes = self::array_delete($nodes, array('', 0, false, null));
-
+        }
         return $nodes;
     }
 
@@ -857,9 +860,7 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
      */
     public static function array_delete(array $array = array(), array $symbols = array())
     {
-        if(is_array($array)  &&  is_array($symbols)){
         return array_diff($array, $symbols);
-    }
     }
 
 
