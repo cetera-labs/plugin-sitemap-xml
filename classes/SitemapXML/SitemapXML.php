@@ -421,7 +421,7 @@ class SitemapXML extends \Cetera\Catalog
                 $v = $arValueSteps['index'];
             }
         } elseif ($v == $arValueSteps["services"]) {
-            if (!is_array($NS["LAST_SERVICES"]))
+            if (isset($NS["LAST_SERVICES"]) && !is_array($NS["LAST_SERVICES"]))
                 $NS["LAST_SERVICES"] = array();
 
             if (!empty($NS["SERVICE_NAME"])) {
