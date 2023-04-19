@@ -792,9 +792,8 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                 $a = self::process_child($child, $rule, $only, $nolink, $exclude, $nocatselect, $level);
                 if(isset($a["children"]) && is_array($a["children"])){
                     $a["children"] = self::getTree($a["id"], $level);
-                }
                     $a["children"] = self::array_delete($a["children"], array('', 0, false, null));
-
+                }
                     if (isset($this->info["dirs"]) && is_array($this->info["dirs"]) && count($this->info["dirs"])) {
                         $a['checked'] = !in_array("section-" . $a["id"], $this->info["dirs"]) ? true : false;
                         $hide = !in_array("element-" . $a["id"], $this->info["dirs"]) ? false : true;
@@ -856,11 +855,14 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
      */
     public static function array_delete(array $array = array(), array $symbols = array())
     {
-        $result=array();
         foreach($array as $ar){
-            array_push($result,array_diff_assoc($ar, $symbols));
+            foreach ($symbols as $empty){
+                if($ar == $empty){
+                    unset($ar);
+                }
+            }
         }
-        return $result;
+        return $array;
     }
 
     public function getUrlList()
