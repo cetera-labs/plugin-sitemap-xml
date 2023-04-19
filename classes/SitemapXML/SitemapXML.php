@@ -429,7 +429,7 @@ class SitemapXML extends \Cetera\Catalog
                 $NS["LAST_SERVICES"][$NS["SERVICE_NAME"]] = $NS["SERVICE_NAME"];
             }
 
-            if (!empty($this->info['yandex']) && !in_array("yandex", $NS["LAST_SERVICES"])) {
+            if (!empty($this->info['yandex']) && isset($NS["LAST_SERVICES"]) && !in_array("yandex", $NS["LAST_SERVICES"])) {
                 $NS["SERVICE_NAME"] = "yandex";
                 $NS["message"] = $t->_("Оповещение поисковых систем: Яндекс");
             } elseif (!empty($this->info['google']) && !in_array("google", $NS["LAST_SERVICES"])) {
