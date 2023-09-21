@@ -374,6 +374,8 @@ class SitemapXML extends \Cetera\Catalog
                 } else {
                     $date = date('c', time());
                 }
+                
+                $url['url'] = rtrim($url['url'],"/").'/';
 
                 $sitemapXML = "\r\n\t<url>
     \t<loc>{$url['url']}</loc>
