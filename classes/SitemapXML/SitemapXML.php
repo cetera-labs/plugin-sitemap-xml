@@ -581,8 +581,6 @@ class SitemapXML extends \Cetera\Catalog
 
         if (($child->isLink()) && ($nolink)) $right = 0;
 
-        if ($child->hidden)
-            return false;
 
         $cls = 'tree-folder-visible';
         if ($child instanceof \Cetera\Server) $cls = 'tree-server';
@@ -745,25 +743,14 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
 
     public static function getTreeList($id, $nodeId, $root = false)
     {
-        $p = new self($id);
+        $p = new self($nodeId);
         $mainNode = $p->process_child(\Cetera\Catalog::getById($nodeId));
         $mainNode["expanded"] = true;
         $mainNode["elements"] = "";
         $mainNode["children"] = $p->getFullTree($nodeId);
-        if ($root) {
-            return array(
-                'text' => 'root',
-                'id' => 'root',
-                'iconCls' => 'tree-folder-visible',
-                'qtip' => '',
-                'mtype' => 0,
-                'disabled' => false,
-                "children" => $mainNode,
-                'expanded' => true
-            );
-        } else {
-            return $mainNode;
-        }
+
+        return $mainNode;
+    
     }
 
     public function getFullTree($nodeId)
@@ -787,9 +774,7 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
 
         $c = \Cetera\Catalog::getById($id);
         if ($c) {
-            foreach ($c->children as $child) {
-                if (!empty($child->hidden))
-                    continue;
+            foreach ($c->children->hidden(true) as $child) {
 
                 $a = self::process_child($child, $rule, $only, $nolink, $exclude, $nocatselect, $level);
                 if(isset($a["children"]) && is_array($a["children"])){
