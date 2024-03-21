@@ -2,9 +2,14 @@
 
 namespace SitemapXML;
 
+/**
+ * 
+ */
 class SitemapCities
 {
-
+    /**
+     * @return void
+     */
     public static function generateCitiesSitemaps()
     {
         $applicationR = \Cetera\Application::getInstance();
