@@ -712,9 +712,9 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
         if (file_exists($this->sitemapPath)) {
             if (!empty($this->info["robots"])) {
                 $robotsPath = DOCROOT . "/robots.txt";
+                $sitemapLinkIndex = str_replace('sitemap','sitemap_index',$this->sitemapLink);
                 if (file_exists($robotsPath)) {
                     $fileContent = file_get_contents($robotsPath);
-                    $sitemapLinkIndex = str_replace('sitemap','sitemap_index',$this->sitemapLink);
                     if (preg_match("#Sitemap: " . addslashes($this->siteInfo->getFullUrl()) . "#", $fileContent)) {
                         $fileContent = preg_replace("#Sitemap: " . addslashes($this->siteInfo->getFullUrl()) . ".*?$#", "Sitemap: " . $sitemapLinkIndex, $fileContent);
                     }
