@@ -3,7 +3,7 @@
 namespace SitemapXML;
 
 /**
- * 
+ *
  */
 class SitemapCities
 {
@@ -24,7 +24,7 @@ class SitemapCities
         unset($applicationR);
         $arSitemapList = [];
         $domain = $_SERVER['REQUEST_SCHEME'].'://'.str_replace('www.','',$_SERVER['SERVER_NAME']);
-        $arSitemapList[] = $domain.'/sitemap.xml';
+        //$arSitemapList[] = $domain.'/sitemap.xml';
 
         while ($row = $result->fetch_assoc()) {
             $xml = file_get_contents(DOCROOT . '/sitemap.xml');
