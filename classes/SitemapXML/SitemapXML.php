@@ -402,7 +402,7 @@ class SitemapXML extends \Cetera\Catalog
 
             if ($bFinished) {
                 self::closeFile();
-
+				SitemapCities::generateCitiesSitemaps();
                 if (!empty($this->info["robots"])) {
                     $NS["message"] = $t->_("Добавление информации в robots.txt");
                     $v = $arValueSteps['robots'];
