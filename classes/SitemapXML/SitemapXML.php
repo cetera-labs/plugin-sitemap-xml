@@ -374,7 +374,7 @@ class SitemapXML extends \Cetera\Catalog
                 } else {
                     $date = date('c', time());
                 }
-                
+
                 $url['url'] = rtrim($url['url'],"/").'/';
 
                 $sitemapXML = "\r\n\t<url>
@@ -714,13 +714,14 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                 $robotsPath = DOCROOT . "/robots.txt";
                 if (file_exists($robotsPath)) {
                     $fileContent = file_get_contents($robotsPath);
+                    $sitemapLinkIndex = str_replace('sitemap','sitemap_index',$this->sitemapLink);
                     if (preg_match("#Sitemap: " . addslashes($this->siteInfo->getFullUrl()) . "#", $fileContent)) {
-                        $fileContent = preg_replace("#Sitemap: " . addslashes($this->siteInfo->getFullUrl()) . ".*?$#", "Sitemap: " . $this->sitemapLink, $fileContent);
+                        $fileContent = preg_replace("#Sitemap: " . addslashes($this->siteInfo->getFullUrl()) . ".*?$#", "Sitemap: " . $sitemapLinkIndex, $fileContent);
                     }
-                    if (!preg_match("#Sitemap: " . $this->sitemapLink . "#s", $fileContent))
-                        $fileContent .= "Sitemap: " . $this->sitemapLink . "\n";
+                    if (!preg_match("#Sitemap: " . $sitemapLinkIndex . "#s", $fileContent))
+                        $fileContent .= "Sitemap: " . $sitemapLinkIndex . "\n";
                 } else {
-                    $fileContent = "Sitemap: " . $this->sitemapLink;
+                    $fileContent = "Sitemap: " . $sitemapLinkIndex;
                 }
                 file_put_contents($robotsPath, $fileContent);
             }
@@ -750,7 +751,7 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
         $mainNode["children"] = $p->getFullTree($nodeId);
 
         return $mainNode;
-    
+
     }
 
     public function getFullTree($nodeId)
@@ -811,7 +812,7 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                         }
 
                         $nodes[] = $a;
-                    
+
                 }
             }
 
