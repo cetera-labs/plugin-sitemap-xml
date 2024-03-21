@@ -402,7 +402,7 @@ class SitemapXML extends \Cetera\Catalog
 
             if ($bFinished) {
                 self::closeFile();
-				SitemapCities::generateCitiesSitemaps();
+
                 if (!empty($this->info["robots"])) {
                     $NS["message"] = $t->_("Добавление информации в robots.txt");
                     $v = $arValueSteps['robots'];
@@ -415,7 +415,7 @@ class SitemapXML extends \Cetera\Catalog
             }
         } elseif ($v == $arValueSteps["robots"]) {
             self::addToRobots();
-
+            SitemapCities::generateCitiesSitemaps();
             if (!empty($this->info["yandex"]) || !empty($this->info["google"]) || !empty($this->info["bing"])) {
                 $NS["message"] = $t->_("Оповещение поисковых систем");
                 $v = $arValueSteps['services'];
@@ -456,6 +456,7 @@ class SitemapXML extends \Cetera\Catalog
             SitemapRuntimeTable::clearByPid($PID);
             $NS["message"] = $t->_("Создание карты сайта успешно выполнено");
         }
+
 
         $_SESSION['NS'][$this->id] = $NS;
 
