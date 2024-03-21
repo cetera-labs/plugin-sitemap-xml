@@ -43,6 +43,7 @@ class SitemapCities
 
         file_put_contents(DOCROOT . '/sitemap_index.xml', $xml->asXML());
         unlink(DOCROOT . '/sitemap.xml');
+        unlink(DOCROOT . 'sitemap.xml');
     }
 }
 
