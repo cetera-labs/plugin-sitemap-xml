@@ -13,6 +13,7 @@
         <field name="google" type="int(1)" null="1"/>
         <field name="bing" type="int(1)" null="1"/>
         <field name="domain" type="varchar(128)" null="0"/>
+		<field name="cities" type="int(1)" null="1"/>
         <key name="PRIMARY" unique="1">
             <column name="id"/>
         </key>

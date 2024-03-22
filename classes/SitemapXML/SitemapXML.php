@@ -424,8 +424,11 @@ class SitemapXML extends \Cetera\Catalog
             }
         } elseif ($v == $arValueSteps["robots"]) {
             self::addToRobots();
-
-            SitemapCities::generateCitiesSitemaps($this->info["domain"], $this->info["path"]);
+			
+			if (!empty($this->info['yandex'])) {
+				SitemapCities::generateCitiesSitemaps($this->info["domain"], $this->info["path"]);
+			}
+            
             if (!empty($this->info["yandex"]) || !empty($this->info["google"]) || !empty($this->info["bing"])) {
                 $NS["message"] = $t->_("Оповещение поисковых систем");
                 $v = $arValueSteps['services'];

@@ -58,6 +58,7 @@ if ($action == 'save_list') {
                 ->set('`google`', $_REQUEST["google"])
                 ->set('`bing`', $_REQUEST["bing"])
                 ->set('`domain`', $qb->expr()->literal(!empty($_REQUEST["domain"]) ? $_REQUEST["domain"] : "section-1", PDO::PARAM_STR))
+				->set('`cities`', $_REQUEST["cities"])
                 ->where($qb->expr()->eq('id', $id))
                 ->execute();
         } else {
@@ -75,6 +76,7 @@ if ($action == 'save_list') {
                         '`google`' => $_REQUEST["google"],
                         '`bing`' => $_REQUEST["bing"],
                         '`domain`' => $qb->expr()->literal(!empty($_REQUEST["domain"]) ? $_REQUEST["domain"] : "section-1", PDO::PARAM_STR),
+						'`cities`' => $_REQUEST["cities"],
                     )
                 )
                 ->execute();
