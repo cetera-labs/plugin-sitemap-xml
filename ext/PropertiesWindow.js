@@ -167,6 +167,12 @@ Ext.define('Plugin.sitemap-xml.PropertiesWindow', {
                       fieldLabel: _('Сайт в формате https://domain.ru'),
                       name: 'domain',
                       allowBlank: false
+                    }, {
+					  xtype: 'checkbox',
+                      boxLabel: _('Sitemap городов'),
+                      name: 'domain',
+                      inputValue: 1,
+                      uncheckedValue: 0,
                     }
                 ]
             },
