@@ -423,6 +423,7 @@ class SitemapXML extends \Cetera\Catalog
                 $v = $arValueSteps['index'];
             }
         } elseif ($v == $arValueSteps["services"]) {
+
             if (isset($NS["LAST_SERVICES"]) && !is_array($NS["LAST_SERVICES"]))
                 $NS["LAST_SERVICES"] = array();
 
@@ -555,24 +556,14 @@ class SitemapXML extends \Cetera\Catalog
 
     protected function process_child(\Cetera\Catalog $child, $rule = false, $only = false, $nolink = false, $exclude = false, $nocatselect = false, $level = 0)
     {
-        global $user;
+
 
         if (!self::prepareLink($child->getFullUrl()))
             return false;
 
         if ($child->id == $exclude) return false;
-        if (!$user->allowCat(PERM_CAT_VIEW, $child->id)) return false;
 
-        if ($rule) {
-            if (is_int($rule))
-                $right = $user->allowCat($rule, $child->id);
-            else {
-                $rul = explode('u', $rule);
-                $right = 0;
-                for ($i = 0; $i < sizeof($rul); $i++)
-                    $right = $right | $user->allowCat($rul[$i], $child->id);
-            }
-        } else $right = 1;
+         $right = 1;
 
         if ($only) {
             if ($child->materialsType != $only) {
