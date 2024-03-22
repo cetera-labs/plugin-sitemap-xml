@@ -365,6 +365,11 @@ class SitemapXML extends \Cetera\Catalog
 
             $hasUrls = false;
             $setProcessed = array();
+            $urlListCounter = 1;
+            $protocolCheck = "http";
+            if (str_contains($this->info["domain"], 'https://') != false) {
+                $protocolCheck = "https";
+            }
             while (($url = $arResUrls->fetch()) && !$bFinished && microtime(true) <= $ts_finish) {
                 $url = preg_replace("#([^:])//#is", "$1/", $url);
                 $hasUrls = true;
@@ -376,6 +381,10 @@ class SitemapXML extends \Cetera\Catalog
                 }
 
                 $url['url'] = rtrim($url['url'],"/").'/';
+
+                if ($protocolCheck === 'https') {
+                    $url['url'] = str_replace( 'http://', 'https://', $url['url']);
+                }
 
                 $sitemapXML = "\r\n\t<url>
     \t<loc>{$url['url']}</loc>
@@ -415,7 +424,8 @@ class SitemapXML extends \Cetera\Catalog
             }
         } elseif ($v == $arValueSteps["robots"]) {
             self::addToRobots();
-            SitemapCities::generateCitiesSitemaps();
+
+            SitemapCities::generateCitiesSitemaps($this->info["domain"], $this->info["path"]);
             if (!empty($this->info["yandex"]) || !empty($this->info["google"]) || !empty($this->info["bing"])) {
                 $NS["message"] = $t->_("Оповещение поисковых систем");
                 $v = $arValueSteps['services'];

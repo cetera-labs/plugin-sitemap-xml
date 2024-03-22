@@ -163,6 +163,11 @@ Ext.define('Plugin.sitemap-xml.PropertiesWindow', {
                         border: false,
                         html: '<p style="font-size:90%; margin: 0 0 10px;">' + _('Регистрация не требуется, но вы можете войти в') + ' <a href="http://www.bing.com/toolbox/webmaster/">Bing Webmaster Tools</a><br>' + _('и проверить статистику по сайту.') + '</p>',
                     },
+                    {
+                      fieldLabel: _('Сайт в формате https://domain.ru'),
+                      name: 'domain',
+                      allowBlank: false
+                    }
                 ]
             },
                 {

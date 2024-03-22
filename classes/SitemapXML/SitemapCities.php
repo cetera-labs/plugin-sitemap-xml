@@ -10,7 +10,7 @@ class SitemapCities
     /**
      * @return void
      */
-    public static function generateCitiesSitemaps()
+    public static function generateCitiesSitemaps($protocolDomain, $xmlPath)
     {
         $applicationR = \Cetera\Application::getInstance();
         $conn = new \mysqli($applicationR->getVar('dbhost'), $applicationR->getVar('dbuser'),
@@ -20,17 +20,23 @@ class SitemapCities
         $sql = "SELECT alias FROM cities WHERE alias is not null";
         $result = $conn->query($sql);
 
+
+        $protocolCheck = "http";
+        if (str_contains($protocolDomain, 'https://') != false) {
+            $protocolCheck = "https";
+        }
+        $domain = strrchr($protocolDomain, '://');
+
         $conn->close();
         unset($applicationR);
         $arSitemapList = [];
-        $domain = 'https://promo-yar.ru';
 
-        if (file_exists(DOCROOT . '/sitemap.xml')) {
+        if (file_exists(DOCROOT . '/'.$xmlPath)) {
             while ($row = $result->fetch_assoc()) {
-                $xml = file_get_contents(DOCROOT . '/sitemap.xml');
-                $myXmlString = str_replace('promo-yar.ru/', 'promo-yar.ru/' . $row['alias'] . '/', $xml);
+                $xml = file_get_contents(DOCROOT . '/'.$xmlPath);
+                $myXmlString = str_replace($domain.'/', $domain.'/' . $row['alias'] . '/', $xml);
                 file_put_contents(DOCROOT . '/sitemap_' . $row['alias'] . '.xml', $myXmlString);
-                $arSitemapList[] = $domain.'/sitemap_'.$row['alias'].'.xml';
+                $arSitemapList[] = $protocolDomain.'/sitemap_'.$row['alias'].'.xml';
             }
 
             $xml = new \SimpleXMLElement("<sitemapindex xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'/>");

@@ -57,6 +57,7 @@ if ($action == 'save_list') {
                 ->set('`yandex`', $_REQUEST["yandex"])
                 ->set('`google`', $_REQUEST["google"])
                 ->set('`bing`', $_REQUEST["bing"])
+                ->set('`domain`', $_REQUEST["domain"])
                 ->where($qb->expr()->eq('id', $id))
                 ->execute();
         } else {
@@ -73,6 +74,7 @@ if ($action == 'save_list') {
                         '`yandex`' => $_REQUEST["yandex"],
                         '`google`' => $_REQUEST["google"],
                         '`bing`' => $_REQUEST["bing"],
+                        '`domain`' => $_REQUEST["domain"],
                     )
                 )
                 ->execute();
