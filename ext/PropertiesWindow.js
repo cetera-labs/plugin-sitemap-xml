@@ -170,7 +170,7 @@ Ext.define('Plugin.sitemap-xml.PropertiesWindow', {
                     }, {
 					  xtype: 'checkbox',
                       boxLabel: _('Sitemap городов'),
-                      name: 'domain',
+                      name: 'cities',
                       inputValue: 1,
                       uncheckedValue: 0,
                     }
