@@ -35,7 +35,7 @@ Ext.define('Plugin.sitemap-xml.SiteTreeCheck', {
             },
             root: {
                 text: 'root',
-                id: 'root',
+                id: '1',
                 iconCls: 'tree-folder-visible',
                 expanded: true
             }

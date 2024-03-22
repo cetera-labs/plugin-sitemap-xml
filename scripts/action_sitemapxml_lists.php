@@ -57,7 +57,7 @@ if ($action == 'save_list') {
                 ->set('`yandex`', $_REQUEST["yandex"])
                 ->set('`google`', $_REQUEST["google"])
                 ->set('`bing`', $_REQUEST["bing"])
-                ->set('`domain`', $qb->expr()->literal($_REQUEST["domain"], PDO::PARAM_STR))
+                ->set('`domain`', $qb->expr()->literal(!empty($_REQUEST["domain"]) ? $_REQUEST["domain"] : "section-1", PDO::PARAM_STR))
                 ->where($qb->expr()->eq('id', $id))
                 ->execute();
         } else {
@@ -74,7 +74,7 @@ if ($action == 'save_list') {
                         '`yandex`' => $_REQUEST["yandex"],
                         '`google`' => $_REQUEST["google"],
                         '`bing`' => $_REQUEST["bing"],
-                        '`domain`' => $qb->expr()->literal($_REQUEST["domain"], PDO::PARAM_STR),
+                        '`domain`' => $qb->expr()->literal(!empty($_REQUEST["domain"]) ? $_REQUEST["domain"] : "section-1", PDO::PARAM_STR),
                     )
                 )
                 ->execute();
