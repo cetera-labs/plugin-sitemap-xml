@@ -410,8 +410,7 @@ class SitemapXML extends \Cetera\Catalog
                 $bFinished = true;
 
             if ($bFinished) {
-                self::closeFile();
-
+                
                 if (!empty($this->info["robots"])) {
                     $NS["message"] = $t->_("Добавление информации в robots.txt");
                     $v = $arValueSteps['robots'];
@@ -423,6 +422,8 @@ class SitemapXML extends \Cetera\Catalog
                 }
             }
         } elseif ($v == $arValueSteps["robots"]) {
+			
+			self::closeFile();
 
 			if (!empty($this->info['cities']) && ($this->info['cities'] == '1')) {
                 self::addToRobots($this->info['path'], $this->info['cities']);
