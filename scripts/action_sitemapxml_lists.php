@@ -44,6 +44,12 @@ if ($action == 'save_list') {
             throw new \Exception($translator->_('Sitemapxml с таким названием уже существует'));
         }
 
+        $dirsListTree = 'section-1';
+        if (!empty($_REQUEST["domain"])) {
+            $dirsListTree = str_replace('section-1,','', $_REQUEST["dirs"]);
+        }
+
+
         $qb = Cetera\DbConnection::getDbConnection()->createQueryBuilder();
         if ($id) {
             $r = $qb
@@ -51,13 +57,13 @@ if ($action == 'save_list') {
                 ->set('`name`', $qb->expr()->literal($_REQUEST["name"], PDO::PARAM_STR))
                 ->set('`site`', $qb->expr()->literal($_REQUEST["site"], PDO::PARAM_STR))
                 ->set('`path`', $qb->expr()->literal($_REQUEST["path"], PDO::PARAM_STR))
-                ->set('`dirs`', $qb->expr()->literal($_REQUEST["dirs"], PDO::PARAM_STR))
+                ->set('`dirs`', $qb->expr()->literal($dirsListTree, PDO::PARAM_STR))
                 ->set('`lastUpdate`', $qb->expr()->literal(date("Y-m-d H:i:s"), PDO::PARAM_STR))
                 ->set('`robots`', $_REQUEST["robots"])
                 ->set('`yandex`', $_REQUEST["yandex"])
                 ->set('`google`', $_REQUEST["google"])
                 ->set('`bing`', $_REQUEST["bing"])
-                ->set('`domain`', $qb->expr()->literal(!empty($_REQUEST["domain"]) ? $_REQUEST["domain"] : "section-1", PDO::PARAM_STR))
+                ->set('`domain`', $qb->expr()->literal($_REQUEST["domain"], PDO::PARAM_STR))
 				->set('`cities`', $_REQUEST["cities"])
                 ->where($qb->expr()->eq('id', $id))
                 ->execute();
@@ -69,13 +75,13 @@ if ($action == 'save_list') {
                         '`name`' => $qb->expr()->literal($_REQUEST["name"], PDO::PARAM_STR),
                         '`site`' => $qb->expr()->literal($_REQUEST["site"], PDO::PARAM_STR),
                         '`path`' => $qb->expr()->literal($_REQUEST["path"], PDO::PARAM_STR),
-                        '`dirs`' => $qb->expr()->literal($_REQUEST["dirs"], PDO::PARAM_STR),
+                        '`dirs`' => $qb->expr()->literal($dirsListTree, PDO::PARAM_STR),
                         '`lastUpdate`' => $qb->expr()->literal(date("Y-m-d H:i:s"), PDO::PARAM_STR),
                         '`robots`' => $_REQUEST["robots"],
                         '`yandex`' => $_REQUEST["yandex"],
                         '`google`' => $_REQUEST["google"],
                         '`bing`' => $_REQUEST["bing"],
-                        '`domain`' => $qb->expr()->literal(!empty($_REQUEST["domain"]) ? $_REQUEST["domain"] : "section-1", PDO::PARAM_STR),
+                        '`domain`' => $qb->expr()->literal($_REQUEST["domain"], PDO::PARAM_STR),
 						'`cities`' => $_REQUEST["cities"],
                     )
                 )
