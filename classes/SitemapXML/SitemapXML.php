@@ -736,7 +736,10 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                 } else {
                     $fileContent = "Sitemap: " . $sitemapLinkIndex;
                 }
-                file_put_contents($robotsPath, $fileContent);
+                if (is_writable($robotsPath)){
+                    file_put_contents($robotsPath, $fileContent);
+                }
+
             }
         }
     }
