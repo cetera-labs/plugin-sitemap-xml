@@ -726,7 +726,7 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                     $pathNoXMLIndex .= '_index';
                 }
                 $sitemapLinkIndex = str_replace('/'.$pathNoXML,''.$pathNoXMLIndex, $this->sitemapLink);
-                if (file_exists($robotsPath)) {
+                if (file_exists($robotsPath) && is_writable($robotsPath)) {
                     $fileContent = file_get_contents($robotsPath);
                     if (preg_match("#Sitemap: " . addslashes($this->siteInfo->getFullUrl()) . "#", $fileContent)) {
                         $fileContent = preg_replace("#Sitemap: " . addslashes($this->siteInfo->getFullUrl()) . ".*?$#", "Sitemap: " . $sitemapLinkIndex, $fileContent);
