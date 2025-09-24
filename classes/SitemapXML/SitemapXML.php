@@ -304,12 +304,6 @@ class SitemapXML extends \Cetera\Catalog
                                         'priority' => '0.6',
                                         'date' => $a["date"]
                                     ));
-                                    SitemapRuntimeTable::addUrl(array(
-                                        'url' => $a["fullUrl"],
-                                        'listId' => $this->id,
-                                        'priority' => '0.6',
-                                        'date' => $a["date"]
-                                    ));
                                     $NS["CURRENT_COUNT"]++;
                                     $NS["message"] = $t->_("Индексирование элементов...");
                                 }
