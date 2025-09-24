@@ -283,13 +283,6 @@ class SitemapXML extends \Cetera\Catalog
                                     'priority' => $dirInfo['id'] == $this->info['site'] ? '1' : '0.8',
                                     'date' => $dirInfo['date']
                                 ));
-
-                                SitemapRuntimeTable::addUrl(array(
-                                    'url' => $dirInfo["fullUrl"],
-                                    'listId' => $this->id,
-                                    'priority' => $dirInfo['id'] == $this->info['site'] ? '1' : '0.8',
-                                    'date' => $dirInfo['date']
-                                ));
                                 $NS["message"] = $t->_("Индексирование элементов...");
                             }
                             unset($NS["CURRENT_DIR_INSERT"]);
@@ -736,10 +729,7 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                 } else {
                     $fileContent = "Sitemap: " . $sitemapLinkIndex;
                 }
-                if (is_writable($robotsPath)){
-                    file_put_contents($robotsPath, $fileContent);
-                }
-
+                file_put_contents($robotsPath, $fileContent);
             }
         }
     }
