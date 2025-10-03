@@ -782,6 +782,7 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                     $a["children"] = self::getTree($a["id"], $level);
                     $a["children"] = self::array_delete($a["children"], array('', 0, false, null));
                 }
+                if (is_array($a)) {
                     if (isset($this->info["dirs"]) && is_array($this->info["dirs"]) && count($this->info["dirs"])) {
                         $a['checked'] = !in_array("section-" . $a["id"], $this->info["dirs"]) ? true : false;
                         $hide = !in_array("element-" . $a["id"], $this->info["dirs"]) ? false : true;
@@ -792,13 +793,14 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                         $a['elements'] = "<a href='#' data-id='" . $a["id"] . "' data-status='" . ($hide ? 'N' : 'Y') . "' class='js-element-hide'>" . ($t->_($hide ? 'Нет' : 'Да')) . "</a>";
                     }
                     $nodes[] = $a;
+                }
             }
             if ($c->isLink()) {
                 foreach ($c->prototype->children as $child) {
                     $a = self::process_child($child, $rule, $only, $nolink, $exclude, $nocatselect, $level);
-                        $a["children"] = self::getTree($a["id"], $level);
-                        $a["children"] = self::array_delete($a["children"], array('', 0, false, null));
-
+                    $a["children"] = self::getTree($a["id"], $level);
+                    $a["children"] = self::array_delete($a["children"], array('', 0, false, null));
+                    if (is_array($a)) {
                         if (isset($this->info["dirs"]) && is_array($this->info["dirs"]) && count($this->info["dirs"])) {
                             $a['checked'] = !in_array("section-" . $a["id"], $this->info["dirs"]) ? true : false;
                             $hide = !in_array("element-" . $a["id"], $this->info["dirs"]) ? false : true;
@@ -812,7 +814,7 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                         }
 
                         $nodes[] = $a;
-
+                    }
                 }
             }
 
