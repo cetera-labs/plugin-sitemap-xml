@@ -30,6 +30,9 @@ Ext.define('Plugin.sitemap-xml.PropertiesWindow', {
                 checkchange: function (node, check) {
                     node.cascadeBy(function (child) {
                         child.set("checked", check);
+                        if (!check) {
+                            child.set("parseElements", "N");
+                        }
                     });
                     _this.reInitEvents();
                 },
@@ -364,7 +367,7 @@ Ext.define('Plugin.sitemap-xml.PropertiesWindow', {
             if (parseInt(id) > 0) {
                 if (!checked)
                     dirs_parse.push("section-" + id);
-                if (parseElements == "N")
+                if (parseElements == "N"|| parseElements === false || parseElements === "")
                     dirs_parse.push("element-" + id);
             }
         });
