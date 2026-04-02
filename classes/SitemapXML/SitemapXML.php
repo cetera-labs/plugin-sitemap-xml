@@ -215,6 +215,37 @@ class SitemapXML extends \Cetera\Catalog
                 }
             }
 
+            // Рекурсивно добавляем все дочерние разделы исключённых директорий.
+            // Это необходимо, т.к. в UI дочерние узлы могут быть не раскрыты
+            // и их состояние чекбокса не передаётся при сохранении.
+            if (!empty($this->excludeDir)) {
+                $allExcluded = $this->excludeDir;
+                foreach ($this->excludeDir as $excludedId) {
+                    $parentRes = self::getList(
+                        array(),
+                        array('data_id' => $excludedId, 'table' => 'dir_structure'),
+                        array(),
+                        array('lft', 'rght')
+                    );
+                    if ($parentInfo = $parentRes->fetch()) {
+                        $childrenRes = self::getList(
+                            array('data_id' => 'asc'),
+                            array(
+                                'table'  => 'dir_structure',
+                                '>lft'   => $parentInfo['lft'],
+                                '<rght'  => $parentInfo['rght'],
+                            ),
+                            array(),
+                            array('data_id')
+                        );
+                        while ($childRow = $childrenRes->fetch()) {
+                            $allExcluded[] = intval($childRow['data_id']);
+                        }
+                    }
+                }
+                $this->excludeDir = array_unique($allExcluded);
+            }
+
             $prevID = !empty($NS["LAST_DIR"]) ? $NS["LAST_DIR"] : 0;
             $mainDirInfoRes = self::getList(array(), array("data_id" => $this->info["site"], "table" => "dir_structure"), array(), array("id, lft, rght"));
             if ($mainDirInfo = $mainDirInfoRes->fetch()) {

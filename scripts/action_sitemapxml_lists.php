@@ -44,10 +44,47 @@ if ($action == 'save_list') {
             throw new \Exception($translator->_('Sitemapxml с таким названием уже существует'));
         }
 
-        $dirsListTree = 'section-1';
-        if (!empty($_REQUEST["domain"])) {
-            $dirsListTree = str_replace('section-1,','', $_REQUEST["dirs"]);
+        // section-1 — технический корень дерева ExtJS, он всегда попадает в dirs_parse из JS.
+        // Убираем его из сохраняемого списка в любой позиции строки.
+        $dirs = isset($_REQUEST["dirs"]) ? (string)$_REQUEST["dirs"] : '';
+        $dirsArr = array_filter(explode(",", $dirs), function($v) {
+            return $v !== '' && $v !== 'section-1';
+        });
+
+        // Рекурсивно добавляем дочерние разделы для всех section-X.
+        // В UI дочерние узлы могут быть не раскрыты и их состояние не передаётся из JS,
+        // поэтому раскрываем дерево на стороне сервера через nested set (lft/rght).
+        $db = Cetera\DbConnection::getDbConnection();
+        $extraSections = [];
+        foreach ($dirsArr as $entry) {
+            if (strpos($entry, 'section-') === 0) {
+                $excludedId = intval(str_replace('section-', '', $entry));
+                $qbParent = $db->createQueryBuilder();
+                $parentRes = $qbParent
+                    ->select('lft, rght')
+                    ->from('dir_structure')
+                    ->where($qbParent->expr()->eq('data_id', $excludedId))
+                    ->execute();
+                if ($parentInfo = $parentRes->fetch()) {
+                    $qbChildren = $db->createQueryBuilder();
+                    $childrenRes = $qbChildren
+                        ->select('data_id')
+                        ->from('dir_structure')
+                        ->where('lft > ' . intval($parentInfo['lft']))
+                        ->andWhere('rght < ' . intval($parentInfo['rght']))
+                        ->orderBy('data_id', 'ASC')
+                        ->execute();
+                    while ($childRow = $childrenRes->fetch()) {
+                        $childSectionKey = 'section-' . intval($childRow['data_id']);
+                        if (!in_array($childSectionKey, $dirsArr) && !in_array($childSectionKey, $extraSections)) {
+                            $extraSections[] = $childSectionKey;
+                        }
+                    }
+                }
+            }
         }
+        $dirsArr = array_values(array_unique(array_merge($dirsArr, $extraSections)));
+        $dirsListTree = implode(",", $dirsArr);
 
 
         $qb = Cetera\DbConnection::getDbConnection()->createQueryBuilder();
