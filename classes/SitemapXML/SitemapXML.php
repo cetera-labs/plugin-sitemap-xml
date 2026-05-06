@@ -744,13 +744,21 @@ xsi:schemaLocation="http://www.google.com/schemas/sitemap/0.84 http://www.google
                     $pathNoXMLIndex .= '_index';
                 }
                 $sitemapLinkIndex = str_replace('/'.$pathNoXML,''.$pathNoXMLIndex, $this->sitemapLink);
-                if (file_exists($robotsPath) && is_writable($robotsPath)) {
+                $canWriteRobots = file_exists($robotsPath)
+                    ? is_writable($robotsPath)
+                    : is_writable(dirname($robotsPath));
+                if (!$canWriteRobots) {
+                    return;
+                }
+
+                if (file_exists($robotsPath)) {
                     $fileContent = file_get_contents($robotsPath);
                     if (preg_match("#Sitemap: " . addslashes($this->siteInfo->getFullUrl()) . "#", $fileContent)) {
                         $fileContent = preg_replace("#Sitemap: " . addslashes($this->siteInfo->getFullUrl()) . ".*?$#", "Sitemap: " . $sitemapLinkIndex, $fileContent);
                     }
-                    if (!preg_match("#Sitemap: " . $sitemapLinkIndex . "#s", $fileContent))
+                    if (!preg_match("#Sitemap: " . $sitemapLinkIndex . "#s", $fileContent)) {
                         $fileContent .= "Sitemap: " . $sitemapLinkIndex . "\n";
+                    }
                 } else {
                     $fileContent = "Sitemap: " . $sitemapLinkIndex;
                 }
